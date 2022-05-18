@@ -1,0 +1,20 @@
+name: ${self:custom.prefix}
+logConfig:
+  level: ALL
+authenticationType: API_KEY
+schema: _schema.graphql # Gerado por "npm run join-graphql-schema", que concatena os arquivos da pasta /serverless/graphql
+mappingTemplatesLocation: src/graphql/mapping-templates
+mappingTemplates:
+  - dataSource: HelloLambda
+    type: Query
+    field: greet
+    request: lambda-default.request.vtl
+    response: lambda-default.response.vtl
+  - ${file(aws/serverless/query-list-all-appointment-live-class-by-client-serverless.yml):queryListAllAppointmentLiveClassByClient.mappingTemplate.listAllAppointmentLiveClassByClient}    
+dataSources:
+  - name: HelloLambda
+    description: 'Lambda Datasource'
+    type: AWS_LAMBDA
+    config:
+      functionName: hello
+  - ${file(aws/serverless/query-list-all-appointment-live-class-by-client-serverless.yml):queryListAllAppointmentLiveClassByClient.dataSource}      

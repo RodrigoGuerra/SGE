@@ -1,0 +1,66 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Creates security group for Lambda VPC access'
+
+Parameters:
+  Application:
+    Description: Application Name (all lowercase) (e.g. 'mgm', 'portal', 'portalinterno')
+    Type: String
+    AllowedPattern: ^[a-z][a-z0-9\-_]*$
+    ConstraintDescription: must start with a lowercase letter and can only contain letters, numbers, dash (-) and underscore (_)
+    MinLength: 2
+    Default: sge
+
+  Environment:
+    Description: Environment to deploy
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - qas
+      - hmg
+      - prd
+
+Mappings:
+  Environments:
+    dev:
+      VPCId: vpc-08ee3749f2ceed65e
+    qas:
+      VPCId: vpc-08ee3749f2ceed65e
+    hmg:
+      VPCId: vpc-08ee3749f2ceed65e # vpc-hmg
+    prd:
+      VPCId: vpc-08ee3749f2ceed65e
+
+Resources:
+  LambdaSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Sub "${Application}-${Environment}-securitygroup-lambda"
+      GroupName: !Sub "${Application}-${Environment}-securitygroup-lambda"
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          ToPort: 80
+          IpProtocol: tcp
+        - CidrIp: 0.0.0.0/0
+          FromPort: 443
+          ToPort: 443
+          IpProtocol: tcp
+      Tags:
+        - { Key: Name, Value: !Sub "${Application}-${Environment}-securitygroup-lambda" }
+        - { Key: Layer, Value: securitygroup }
+      VpcId: !FindInMap [Environments, !Ref Environment, VPCId]
+
+Outputs:
+  LambdaSecurityGroupArn:
+    Description: The ARN of the Lambda SecurityGroup
+    Value: !Ref LambdaSecurityGroup
+    Export:
+      Name: !Sub "${AWS::StackName}-LambdaSecurityGroupArn"
+
+  LambdaSecurityGroupGroupId:
+    Description: The ARN of the Lambda SecurityGroup
+    Value: !GetAtt LambdaSecurityGroup.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}-LambdaSecurityGroupGroupId"

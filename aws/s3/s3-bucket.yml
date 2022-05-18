@@ -1,0 +1,21 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Criacao do bucket a ser utilizado pelo build"
+
+Parameters:
+  Application:
+    Description: "Application (slug-case)"
+    Type: "String"
+    Default: "sge"
+
+  Environment:
+    Type: "String"
+    Default: "dev"
+    AllowedValues: ["dev", "qas", "hmg", "prd"]
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${Application}-backend-serverless-deployment-${Environment}"
+      AccessControl: PublicRead

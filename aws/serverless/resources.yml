@@ -1,0 +1,29 @@
+CloudFrontDistribution:
+  Type: AWS::CloudFront::Distribution
+  Properties:
+    DistributionConfig:
+      Enabled: true
+      HttpVersion: http2
+      Origins:
+        - DomainName: !Select [ 2, !Split ['/', !GetAtt "GraphQlApi.GraphQLUrl"] ]
+          Id: !Select [ 2, !Split ['/', !GetAtt "GraphQlApi.GraphQLUrl"] ]
+          CustomOriginConfig:
+            HTTPPort: 80
+            HTTPSPort: 443
+            OriginKeepaliveTimeout: 5
+            OriginReadTimeout: 30
+            OriginProtocolPolicy: https-only
+            OriginSSLProtocols: [TLSv1, TLSv1.1, TLSv1.2]
+      DefaultCacheBehavior:
+        AllowedMethods: [ HEAD, DELETE, POST, GET, OPTIONS, PUT, PATCH ]
+        ForwardedValues:
+          QueryString: false
+        SmoothStreaming: false
+        Compress: true
+        TargetOriginId: !Select [ 2, !Split ['/', !GetAtt "GraphQlApi.GraphQLUrl"] ]
+        ViewerProtocolPolicy: redirect-to-https
+      PriceClass: PriceClass_100
+      ViewerCertificate:
+        SslSupportMethod: sni-only
+        MinimumProtocolVersion: TLSv1.1_2016
+        AcmCertificateArn: ${self:custom.acmCertificateArn.${self:provider.stage}}
