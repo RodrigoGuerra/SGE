@@ -1,0 +1,4 @@
+type HealthCheckType{
+    status:Int,
+    message:String
+}

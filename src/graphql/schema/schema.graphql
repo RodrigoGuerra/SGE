@@ -1,0 +1,7 @@
+type Query {
+    getHealthCheck:HealthCheckType    
+}
+
+schema {
+    query:Query,
+}

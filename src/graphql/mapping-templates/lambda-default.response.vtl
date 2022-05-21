@@ -1,0 +1,8 @@
+#if( $context.result && $context.result.error )
+    #set ( $error = $context.result.error )
+    ## Obs: o campo $error.data precisa ser um objeto, se for int, string, boolean, etc, será retornado como null
+    ## e aparecerá na mensagem de erro: "Additionally, an error was encountered retrieving the current data."
+    $utils.error($error.message, $error.name, $error.data, $error)
+#else
+    $util.toJson($context.result.success)
+#end

@@ -1,0 +1,11 @@
+type Query {
+    getHealthCheck:HealthCheckType    
+}
+
+schema {
+    query:Query,
+}
+type HealthCheckType{
+    status:Int,
+    message:String
+}

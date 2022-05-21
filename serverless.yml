@@ -4,7 +4,6 @@ plugins:
   - serverless-appsync-plugin
   - serverless-webpack
   - serverless-pseudo-parameters
-
 provider:
   name: aws
   stackName: ${self:service}-${self:provider.stage}
@@ -63,23 +62,20 @@ package:
   individually: false
   excludeDevDependencies: false
 
-functions:
-  hello:
-    handler: src/handlers/all.hello
-    name: ${self:custom.prefix}-hello
-  queryListAllAppointmentLiveClassByClient: ${file(aws/serverless/query-list-all-appointment-live-class-by-client-serverless.yml):queryListAllAppointmentLiveClassByClient.function}       
+functions:  
+  queryHealthCheck: ${file(aws/serverless/query-healthCheck-serverless.yml):queryGetHealthCheck.function}       
   
 
-resources:
-  Resources:
-    ${file(aws/serverless/resources.yml)}
+# resources:
+#   Resources:
+#     ${file(aws/serverless/resources.yml)}
 
-  Outputs:
-    ApiUrl:
-        Description: Api URL GraphQL
-        Value: https://${self:custom.domain}/graphql
-        Export:
-          Name: !Sub "#{AWS::StackName}-apiurl"
+  # Outputs:
+  #   ApiUrl:
+  #       Description: Api URL GraphQL
+  #       Value: https://${self:custom.domain}/graphql
+  #       Export:
+  #         Name: !Sub "#{AWS::StackName}-apiurl"
 
 custom:
   application: ${opt:application, 'sge'}
