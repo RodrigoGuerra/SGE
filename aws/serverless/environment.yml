@@ -1,4 +1,0 @@
-environment:
-  NODE_ENV: ${self:custom.node-env.${self:provider.stage}}
-  APPLICATION: ${self:custom.application}
-  ENV: ${self:provider.stage}

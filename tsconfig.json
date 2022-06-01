@@ -1,47 +1,21 @@
 {
   "compilerOptions": {
-    "declaration": false,
-    "incremental": true,
-    "lib": [
-      "esnext",
-      "es2018",
-      "es2018.promise",
-      "esnext.asynciterable",
-      "esnext.bigint",
-      "esnext.array"
-    ],
-    "allowUnusedLabels": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": true,
-    "target": "es6",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "noLib": false,
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "newLine": "LF",
-    "pretty": true,
-    "allowJs": true,
-    "checkJs": true,
-    "sourceMap": true,
+    "declaration": true,
     "removeComments": true,
-    //"resolveJsonModule": true,
-    //helmet
-    //"esModuleInterop": true,
-    //helmet
-    // typeorm
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    // typeorm
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "paths": {
-    "@/*": ["./*"]
-  },
-  "include": ["src/**/*", "server.ts", "mssql"],
-  "exclude": ["node_modules", "dist"]
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }

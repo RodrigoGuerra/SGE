@@ -1,81 +1,73 @@
-# WORKOUT SCHEDULE BACK
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-## Description:
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-TODO Description......
-## Technologies used:
-- Nodejs (TypeScript)
-- Lambda
-- GraphQl
-- AppSync
-- RDS (POSTGRESQL)
-- Others AWS Services (CloudWatch/VPC/Security Groups....)
-## PrereRequisites:
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-- NodeJs
-- Aws CLI
+## Description
 
-## Instalation:
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-```
-npm install --legacy-peer-deps
-```
-## 🚀 SECURITY GROUP
+## Installation
 
-####
-
-```
-aws cloudformation create-stack --template-body file://./aws/security-group/lambda-sec/lambda-sec-group.yml --stack-name sge-dev-lambda-security-group --profile rich
-
-aws cloudformation create-stack --template-body file://./aws/security-group/rds-sec/rds-sec-group.yml --stack-name sge-dev-rds-security-group --profile rich
-```
-
-## 🚀 RDS
-
-####
-
-```
-aws cloudformation create-stack --template-body file://./aws/rds/rds-cloudformation.template.dev.yml --stack-name sge-dev-rds --profile rich
+```bash
+$ npm install
 ```
 
-## 🔨 Build Aplication
+## Running the app
 
-```
-npm run package:(stack-tag)
-```
+```bash
+# development
+$ npm run start
 
-The stack-tag can be: [dev,homolog,prd]
+# watch mode
+$ npm run start:dev
 
-## 🚀 Deploy Aplication
-
-We are using serverless-webpack this follow command will build and deploy the application in a specific stack:
-
-```
-npm run deploy:(stack-tag)
+# production mode
+$ npm run start:prod
 ```
 
-The stack-tag can be: [dev,homolog,prd]
+## Test
 
-## 🏃 RUN/TEST
+```bash
+# unit tests
+$ npm run test
 
-Test:
+# e2e tests
+$ npm run test:e2e
 
+# test coverage
+$ npm run test:cov
 ```
-npm run deploy:(stack-tag)
-```
 
-The stack-tag can be: [dev,homolog,prd]
+## Support
 
-To Debug use insominia
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-### Organizations
+## Stay in touch
 
-[SGE](https://www.nossosite.com.br/)
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## 🤝 Code Contributors
+## License
 
-👤 **Rodrigo Gonçalves**
-
-## 📝 License
-
-Copyright © 2022 [SGE](https://www.nossosite.com.br/)
+Nest is [MIT licensed](LICENSE).
