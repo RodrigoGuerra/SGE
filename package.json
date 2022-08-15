@@ -6,20 +6,16 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "prestart": "npm run graphql-codegen",
+    "format": "prettier --write \"src/*/.ts\" \"test/*/.ts\"",
+    "prestart": "find ./src/graphql -type f -name '*.graphql' -exec cat {} + > _schema.graphql",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "prejoin-graphql-schema": "rimraf _schema.graphql",
-    "join-graphql-schema": "find ./src/graphql -type f -name '*.graphql' -exec cat {} + > _schema.graphql",
-    "pregraphql-codegen": "npm run join-graphql-schema",
-    "graphql-codegen": "graphql-codegen --config ./src/graphql/graphql-codegen.yml",
+    "prestart:prod": "find ./src/graphql -type f -name '*.graphql' -exec cat {} + > _schema.graphql",
+    "lint": "eslint \"{src,apps,libs,test}/*/.ts\" --fix",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -32,6 +28,7 @@
     "@nestjs/graphql": "^10.0.12",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/terminus": "^8.1.1",
     "@nestjs/typeorm": "^9.0.0-next.2",
     "apollo-server-express": "^3.7.0",
     "dotenv": "^16.0.1",
@@ -40,17 +37,16 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.6"
+    "typeorm": "^0.3.6",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/typescript": "^2.4.11",
-    "@nestjs/cli": "^8.0.0",
+    "@nestjs/cli": "^8.2.8",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@types/express": "^4.17.13",
     "@types/jest": "27.5.0",
-    "@types/node": "^16.0.0",
+    "@types/node": "^16.11.49",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -80,7 +76,7 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "*/.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
