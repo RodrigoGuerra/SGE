@@ -6,29 +6,30 @@ import { UpdateUserInput } from '../dtos/update-user.input';
 @Resolver('User')
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
-
   @Mutation('createUser')
   create(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
+    if (!createUserInput.email) {
+      throw new Error('Email is required');
+    }
+    if (!createUserInput.name) {
+      throw new Error('Name is required');
+    }
+    return this.usersService.createUser(createUserInput);
   }
 
-  @Query('users')
-  findAll() {
-    return this.usersService.findAll();
-  }
-
-  @Query('user')
-  findOne(@Args('id') id: string) {
-    return this.usersService.findOne(id);
+  @Query('userByEmail')
+  findOne(@Args('email') email: string) {
+    if (!email) throw new Error('email not recive!');
+    return this.usersService.findByEmail(email);
   }
 
   @Mutation('updateUser')
   update(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
+    return this.usersService.update(updateUserInput.userId, updateUserInput);
   }
 
   @Mutation('removeUser')
-  remove(@Args('id') id: number) {
-    return this.usersService.remove(id);
+  removeUser(@Args('userId') userId: string) {
+    return this.usersService.remove(userId);
   }
 }

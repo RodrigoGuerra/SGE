@@ -1,12 +1,103 @@
-type Query {
-  users: [User]!
-  user(id: String!): User
+type Function {
+  # Example field (placeholder)
+  functionId: String!
+  name: String!
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateFunctionInput {
+  # Example field (placeholder)
+  name: String!
+}
+
+input UpdateFunctionInput {
+  functionId: String!
+  name: String
+}
+type Person {
+  # Example field (placeholder)
+  personId: String!
+  email: String!
+  name: String
+  phone: String
+  age: Int
+  status: String
+  createdAt: String
+  updatedAt: String
+  user: User
+  # icon: String
+}
+
+enum StatusEnum {
+  ATIVO
+  PENDENTE
+  CANCELADO
+}
+
+input CreatePersonInput {
+  # Example field (placeholder)
+  personId: String!
+  email: String!
+  name: String
+  phone: String
+  age: Int
+  status: String
+}
+
+input UpdatePersonInput {
+  personId: String!
+  email: String!
+  name: String
+  phone: String
+  age: Int
+  status: String
+}
+type Role {
+  roleId: Int!
+  roleName: String!
+  canCreateStudent: Boolean
+  canReadStudent: Boolean
+  canUpdateStudent: Boolean
+  canDeleteStudent: Boolean
+  canCreateEmployee: Boolean
+  canReadEmployee: Boolean
+  canUpdateEmployee: Boolean
+  canDeleteEmployee: Boolean
+  canCreateSchool: Boolean
+  canReadSchool: Boolean
+  canUpdateSchool: Boolean
+  canDeleteSchool: Boolean
+  canCreateClass: Boolean
+  canReadClass: Boolean
+  canUpdateClass: Boolean
+  canDeleteClass: Boolean
+  canCreateDiscipline: Boolean
+  canReadDiscipline: Boolean
+  canUpdateDiscipline: Boolean
+  canDeleteDiscipline: Boolean
+  canVinculateStudent: Boolean
+  canVinculateEmployee: Boolean
+  canVinculateClass: Boolean
+  canVinculateDiscipline: Boolean
+  createdAt: String
+  updatedAt: String
+}type Query {
+  userByEmail(email: String!): User
+  functionByName(name: String!): Function
+  personByEmail(email: String!): Person
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User
+  createFunction(createFunctionInput: CreateFunctionInput!): Function!
+  updateFunction(updateFunctionInput: UpdateFunctionInput!): Function!
+  removeFunction(id: Int!): Function
+  createPerson(createPersonInput: CreatePersonInput!): Person!
+  updatePerson(updatePersonInput: UpdatePersonInput!): Person!
+  removePerson(id: Int!): Person
 }
 type HealthCheckType{
     status:Int,
@@ -14,16 +105,25 @@ type HealthCheckType{
 }
 type User {
   # Example field (placeholder)
-  name: String
-  email: String
-  created_at: String
+  userId: String!
+  email: String!
+  name: String!
+  createdAt: String
+  updatedAt: String
+  roleId: Int!
+  role: Role
+  # icon: String
 }
 
 input CreateUserInput {
   # Example field (placeholder)
-  exampleField: Int
+  email: String!
+  name: String!
+  roleId: Int!
 }
 
 input UpdateUserInput {
-  id: Int!
+  userId: String!
+  email: String
+  name: String
 }

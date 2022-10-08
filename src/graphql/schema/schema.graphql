@@ -1,10 +1,17 @@
 type Query {
-  users: [User]!
-  user(id: String!): User
+  userByEmail(email: String!): User
+  functionByName(name: String!): Function
+  personByEmail(email: String!): Person
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User
+  createFunction(createFunctionInput: CreateFunctionInput!): Function!
+  updateFunction(updateFunctionInput: UpdateFunctionInput!): Function!
+  removeFunction(id: Int!): Function
+  createPerson(createPersonInput: CreatePersonInput!): Person!
+  updatePerson(updatePersonInput: UpdatePersonInput!): Person!
+  removePerson(id: Int!): Person
 }

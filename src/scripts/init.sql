@@ -5,11 +5,26 @@ use sge_db
 CREATE TABLE `roles` (
   `role_id` VARCHAR(38) NOT NULL,
   `role_name` VARCHAR(255),
-  `can_add_employee` TINYINT(1),
-  `can_create_lead` TINYINT(1),
-  `can_edit_lead` TINYINT(1),
-  `can_delete_lead` TINYINT(1),
-  `can_vinculate_lead` TINYINT(1),
+  `can_create_student` TINYINT(1),
+  `can_read_student` TINYINT(1),
+  `can_update_student` TINYINT(1),
+  `can_delete_student` TINYINT(1),
+  `can_create_employee` TINYINT(1),
+  `can_read_employee` TINYINT(1),
+  `can_update_employee` TINYINT(1),
+  `can_delete_employee` TINYINT(1),
+  `can_create_class` TINYINT(1),
+  `can_read_class` TINYINT(1),
+  `can_update_class` TINYINT(1),
+  `can_delete_class` TINYINT(1),
+  `can_create_discipline` TINYINT(1),
+  `can_read_discipline` TINYINT(1),
+  `can_update_discipline` TINYINT(1),
+  `can_delete_discipline` TINYINT(1),
+  `can_vinculate_student` TINYINT(1),
+  `can_vinculate_employee` TINYINT(1),
+  `can_vinculate_class` TINYINT(1),
+  `can_vinculate_discipline` TINYINT(1),
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME,
   PRIMARY KEY (`role_id`)
@@ -30,8 +45,8 @@ CREATE TABLE `users` (
   FOREIGN KEY (`role_id_fk`) REFERENCES `roles` (`role_id`) ON DELETE SET NULL 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `leads` (
-  `lead_id` VARCHAR(38) NOT NULL,
+CREATE TABLE `persons` (
+  `person_id` VARCHAR(38) NOT NULL,
   `email` VARCHAR(255),
   `phone` VARCHAR(255),
   `name` VARCHAR(255),
@@ -40,12 +55,26 @@ CREATE TABLE `leads` (
   `updated_at` DATETIME,
   `user_id_fk` VARCHAR(38) NOT NULL,
   `status` VARCHAR (30),
-  `obs` VARCHAR(1024),
-  `valor_total_plano` double DEFAULT NULL,
-  PRIMARY KEY (`lead_id`),
+  PRIMARY KEY (`person_id`),
   FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `functions` (
+  `functions_id` VARCHAR(38) NOT NULL,
+  `name` VARCHAR(255),
+  PRIMARY KEY (`functions_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `person_functions` (
+  `person_functions_id` VARCHAR(38) NOT NULL,
+  `person_id_fk` VARCHAR(38) NOT NULL,
+  `functions_id_fk` VARCHAR(38) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`person_functions_id`),
+  FOREIGN KEY (`person_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`functions_id_fk`) REFERENCES `functions` (`functions_id`) ON DELETE CASCADE  
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users_integrations` (
   `user_integration_id` VARCHAR(38) NOT NULL,
@@ -58,13 +87,53 @@ CREATE TABLE `users_integrations` (
   FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `manager_employee` (
-  `manager_employee_id` VARCHAR(38) NOT NULL,
-  `manager_id_fk` VARCHAR(38) NOT NULL,
-  `employee_id_fk` VARCHAR(38) NOT NULL,
+CREATE TABLE `discipline` (
+  `discipline_id` VARCHAR(38) NOT NULL,
+  `name` VARCHAR(255),
+  `professor_id_fk` VARCHAR(38) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME,  
-  PRIMARY KEY (`manager_employee_id`),
-  FOREIGN KEY (`manager_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  FOREIGN KEY (`employee_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE  
+  PRIMARY KEY (`discipline_id`),
+  FOREIGN KEY (`professor_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `class` (
+  `class_id` VARCHAR(38) NOT NULL,
+  `name` VARCHAR(255),
+  `discipline_id_fk` VARCHAR(38) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`class_id`),
+  FOREIGN KEY (`discipline_id_fk`) REFERENCES `discipline` (`discipline_id`) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `class_students` (
+  `class_students_id` VARCHAR(38) NOT NULL,
+  `class_id_fk` VARCHAR(38) NOT NULL,
+  `students_id_fk` VARCHAR(38) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`class_students_id`),
+  FOREIGN KEY (`class_id_fk`) REFERENCES `class` (`class_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`students_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE  
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `schools` (
+  `school_id` VARCHAR(38) NOT NULL,
+  `name` VARCHAR(255),
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`school_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `schools_persons` (
+  `schools_persons_id` VARCHAR(38) NOT NULL,
+  `school_id_fk` VARCHAR(38) NOT NULL,
+  `persons_id_fk` VARCHAR(38) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`schools_persons_id`),
+  FOREIGN KEY (`school_id_fk`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`persons_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE  
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

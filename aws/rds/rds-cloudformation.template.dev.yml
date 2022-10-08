@@ -14,12 +14,12 @@ Resources:
       DBInstanceIdentifier: "sge-dev"
       AllocatedStorage: "10"
       DBInstanceClass: "db.t3.micro"
-      Engine: "postgres"
-      EngineVersion: 14.1
+      Engine: "mysql"
+      EngineVersion: 8.0.28
       DBSubnetGroupName: !Ref DatabaseSubnetGroup
       PubliclyAccessible: true
       VPCSecurityGroups:
         - !ImportValue sge-dev-rds-security-group-RDSSecurityGroupGroupId
-      MasterUsername: "sge"
+      MasterUsername: "sgeuser"
       MasterUserPassword: "sgesgesge"
     DeletionPolicy: "Snapshot"  
