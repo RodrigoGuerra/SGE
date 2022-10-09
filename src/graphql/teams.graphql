@@ -1,0 +1,26 @@
+type Team {
+  # Example field (placeholder)
+  teamId: String!
+  name: String!
+  createdAt: String
+  updatedAt: String
+  discipline: Discipline
+  # icon: String
+}
+
+enum StatusEnum {
+  ATIVO
+  PENDENTE
+  CANCELADO
+}
+
+input CreateTeamInput {
+  # Example field (placeholder)
+  teamId: String!
+  name: String!
+}
+
+input UpdateTeamInput {
+  teamId: String!
+  name: String!
+}

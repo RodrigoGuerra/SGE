@@ -13,7 +13,7 @@ export class PersonsService {
   ) {}
 
   createUser(createPersonInput: CreatePersonInput) {
-    const user: Person = {
+    const person: Person = {
       personId: v4(),
       createdAt: new Date(),
       email: createPersonInput.email,
@@ -22,10 +22,12 @@ export class PersonsService {
       age: createPersonInput.age,
       status: createPersonInput.status,
       userId: createPersonInput.userId,
+      disciplineId: createPersonInput.disciplineId,
+      teams: createPersonInput.teams,
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };
-    return this.personRepository.save(user);
+    return this.personRepository.save(person);
   }
 
   findOne(personId: string) {

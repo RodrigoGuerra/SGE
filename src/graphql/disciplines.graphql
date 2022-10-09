@@ -1,0 +1,18 @@
+type Discipline {
+  # Example field (placeholder)
+  disciplineId: String!
+  name: String!
+  createdAt: String
+  updatedAt: String
+  # icon: String
+}
+
+input CreateDisciplineInput {
+  # Example field (placeholder)
+  name: String!
+}
+
+input UpdateDisciplineInput {
+  disciplineId: String!
+  name: String
+}

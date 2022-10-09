@@ -1,3 +1,21 @@
+type Discipline {
+  # Example field (placeholder)
+  disciplineId: String!
+  name: String!
+  createdAt: String
+  updatedAt: String
+  # icon: String
+}
+
+input CreateDisciplineInput {
+  # Example field (placeholder)
+  name: String!
+}
+
+input UpdateDisciplineInput {
+  disciplineId: String!
+  name: String
+}
 type Function {
   # Example field (placeholder)
   functionId: String!
@@ -15,6 +33,23 @@ input UpdateFunctionInput {
   functionId: String!
   name: String
 }
+# type PersonFunctions {
+#   # Example field (placeholder)
+#   functionId: String!
+#   name: String!
+#   createdAt: String
+#   updatedAt: String
+# }
+
+# input CreateFunctionInput {
+#   # Example field (placeholder)
+#   name: String!
+# }
+
+# input UpdateFunctionInput {
+#   functionId: String!
+#   name: String
+# }
 type Person {
   # Example field (placeholder)
   personId: String!
@@ -26,6 +61,7 @@ type Person {
   createdAt: String
   updatedAt: String
   user: User
+  discipline: Discipline
   # icon: String
 }
 
@@ -86,6 +122,8 @@ type Role {
   userByEmail(email: String!): User
   functionByName(name: String!): Function
   personByEmail(email: String!): Person
+  disciplineByName(name: String!): Discipline
+  teamByName(name: String!): Team
 }
 
 type Mutation {
@@ -98,6 +136,57 @@ type Mutation {
   createPerson(createPersonInput: CreatePersonInput!): Person!
   updatePerson(updatePersonInput: UpdatePersonInput!): Person!
   removePerson(id: Int!): Person
+  createDiscipline(createDisciplineInput: CreateDisciplineInput!): Discipline!
+  updateDiscipline(updateDisciplineInput: UpdateDisciplineInput!): Discipline!
+  removeDiscipline(id: Int!): Discipline
+  createTeam(createTeamInput: CreateTeamInput!): Team!
+  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
+  removeTeam(id: Int!): Team
+}
+type School {
+  # Example field (placeholder)
+  schoolId: String!
+  name: String!
+  managerId: String!
+  createdAt: String
+  updatedAt: String
+  # icon: String
+}
+
+input CreateSchoolInput {
+  # Example field (placeholder)
+  name: String!
+}
+
+input UpdateSchoolInput {
+  schoolId: String!
+  name: String
+}
+type Team {
+  # Example field (placeholder)
+  teamId: String!
+  name: String!
+  createdAt: String
+  updatedAt: String
+  discipline: Discipline
+  # icon: String
+}
+
+enum StatusEnum {
+  ATIVO
+  PENDENTE
+  CANCELADO
+}
+
+input CreateTeamInput {
+  # Example field (placeholder)
+  teamId: String!
+  name: String!
+}
+
+input UpdateTeamInput {
+  teamId: String!
+  name: String!
 }
 type HealthCheckType{
     status:Int,

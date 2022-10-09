@@ -1,0 +1,17 @@
+# type PersonFunctions {
+#   # Example field (placeholder)
+#   functionId: String!
+#   name: String!
+#   createdAt: String
+#   updatedAt: String
+# }
+
+# input CreateFunctionInput {
+#   # Example field (placeholder)
+#   name: String!
+# }
+
+# input UpdateFunctionInput {
+#   functionId: String!
+#   name: String
+# }

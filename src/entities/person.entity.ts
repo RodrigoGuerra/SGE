@@ -1,5 +1,15 @@
-import { Column, Entity, Index, JoinColumn, OneToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToOne,
+  ManyToOne,
+  ManyToMany,
+} from 'typeorm';
 import { User } from './user.entity';
+import { Discipline } from './discipline.entity';
+import { Team } from './team.entity';
 
 @Index('email', ['email'], { unique: true })
 @Index('user_id_fk', ['userId'], {})
@@ -31,6 +41,9 @@ export class Person {
   @Column('tinyint', { name: 'user_id_fk', nullable: false })
   userId: string | null;
 
+  @Column('tinyint', { name: 'discipline_id_fk', nullable: false })
+  disciplineId: string | null;
+
   @Column('datetime', { name: 'created_at' })
   createdAt: Date;
 
@@ -43,4 +56,16 @@ export class Person {
   })
   @JoinColumn([{ name: 'user_id_fk', referencedColumnName: 'userId' }])
   user?: User;
+
+  @ManyToOne(() => Discipline, (disciplines) => disciplines.persons, {
+    onDelete: 'SET NULL',
+    onUpdate: 'NO ACTION',
+  })
+  @JoinColumn([
+    { name: 'discipline_id_fk', referencedColumnName: 'disciplineId' },
+  ])
+  discipline?: Discipline;
+
+  @ManyToMany(() => Team, (teams) => teams.persons, { eager: false })
+  teams: Team[];
 }

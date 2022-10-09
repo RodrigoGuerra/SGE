@@ -9,6 +9,7 @@ type Person {
   createdAt: String
   updatedAt: String
   user: User
+  discipline: Discipline
   # icon: String
 }
 

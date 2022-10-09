@@ -1,3 +1,4 @@
+import { Team } from '../entities/team.entity';
 export class CreatePersonInput {
   email!: string;
   phone: string;
@@ -5,4 +6,6 @@ export class CreatePersonInput {
   age: number;
   status: string;
   userId!: string;
+  disciplineId: string;
+  teams: Team[];
 }

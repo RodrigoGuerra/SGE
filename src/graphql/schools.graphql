@@ -1,0 +1,19 @@
+type School {
+  # Example field (placeholder)
+  schoolId: String!
+  name: String!
+  managerId: String!
+  createdAt: String
+  updatedAt: String
+  # icon: String
+}
+
+input CreateSchoolInput {
+  # Example field (placeholder)
+  name: String!
+}
+
+input UpdateSchoolInput {
+  schoolId: String!
+  name: String
+}

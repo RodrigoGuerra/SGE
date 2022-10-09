@@ -2,6 +2,8 @@ type Query {
   userByEmail(email: String!): User
   functionByName(name: String!): Function
   personByEmail(email: String!): Person
+  disciplineByName(name: String!): Discipline
+  teamByName(name: String!): Team
 }
 
 type Mutation {
@@ -14,4 +16,10 @@ type Mutation {
   createPerson(createPersonInput: CreatePersonInput!): Person!
   updatePerson(updatePersonInput: UpdatePersonInput!): Person!
   removePerson(id: Int!): Person
+  createDiscipline(createDisciplineInput: CreateDisciplineInput!): Discipline!
+  updateDiscipline(updateDisciplineInput: UpdateDisciplineInput!): Discipline!
+  removeDiscipline(id: Int!): Discipline
+  createTeam(createTeamInput: CreateTeamInput!): Team!
+  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
+  removeTeam(id: Int!): Team
 }
