@@ -4,6 +4,7 @@ type Query {
   personByEmail(email: String!): Person
   disciplineByName(name: String!): Discipline
   teamByName(name: String!): Team
+  schoolByName(name: String!): School
 }
 
 type Mutation {
@@ -22,4 +23,7 @@ type Mutation {
   createTeam(createTeamInput: CreateTeamInput!): Team!
   updateTeam(updateTeamInput: UpdateTeamInput!): Team!
   removeTeam(id: Int!): Team
+  createSchool(createSchoolInput: CreateSchoolInput!): School!
+  updateSchool(updateSchoolInput: UpdateSchoolInput!): School!
+  removeSchool(id: Int!): School
 }
