@@ -4,7 +4,6 @@ import { UpdateUserInput } from '../dtos/update-user.input';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { v4 } from 'uuid';
-import { School } from '../entities/school.entity';
 
 @Injectable()
 export class UsersService {
@@ -18,10 +17,11 @@ export class UsersService {
       userId: v4(),
       createdAt: new Date(),
       email: createUserInput.email,
+      phone: createUserInput.phone,
       name: createUserInput.name,
+      age: createUserInput.age,
       roleId: createUserInput.roleId,
       updatedAt: null,
-      //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };
     return this.userRepository.save(user);
   }
@@ -31,7 +31,6 @@ export class UsersService {
   }
   async findByEmail(email: string) {
     const result = await this.userRepository.findOne({ where: { email } });
-    // if (!result) throw new Error('User not found');
     return result;
   }
 

@@ -19,7 +19,6 @@ export class TeamsService {
       name: createTeamInput.name,
       disciplineId: createTeamInput.disciplineId,
       schoolId: createTeamInput.schoolId,
-      persons: createTeamInput.Persons,
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };

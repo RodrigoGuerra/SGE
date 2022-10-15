@@ -1,6 +1,5 @@
-import { Column, Entity, ManyToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { Discipline } from './discipline.entity';
-import { Person } from './person.entity';
 import { School } from './school.entity';
 
 @Entity('team', { schema: 'sge_db' })
@@ -23,7 +22,7 @@ export class Team {
   @Column('datetime', { name: 'updated_at', nullable: true })
   updatedAt: Date | null;
 
-  @ManyToOne(() => Discipline, (disciplines) => disciplines.persons, {
+  @ManyToOne(() => Discipline, (disciplines) => disciplines.disciplineId, {
     onDelete: 'SET NULL',
     onUpdate: 'NO ACTION',
   })
@@ -38,7 +37,4 @@ export class Team {
   })
   @JoinColumn([{ name: 'school_id_fk', referencedColumnName: 'schoolId' }])
   school?: School;
-
-  @ManyToMany(() => Person, (persons) => persons.teams, { eager: false })
-  persons: Person[];
 }

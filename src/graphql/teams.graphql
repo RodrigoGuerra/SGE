@@ -4,14 +4,8 @@ type Team {
   name: String!
   createdAt: String
   updatedAt: String
-  discipline: Discipline
-  # icon: String
-}
-
-enum StatusEnum {
-  ATIVO
-  PENDENTE
-  CANCELADO
+  discipline: Discipline!
+  school: School!
 }
 
 input CreateTeamInput {

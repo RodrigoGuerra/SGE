@@ -16,8 +16,14 @@ export class User {
   })
   email: string | null;
 
+  @Column('varchar', { name: 'phone', nullable: true, length: 255 })
+  phone: string | null;
+
   @Column('varchar', { name: 'name', nullable: true, length: 255 })
   name: string | null;
+
+  @Column('tinyint', { name: 'age', nullable: true })
+  age: number | null;
 
   @Column('tinyint', { name: 'role_id_fk', nullable: false })
   roleId: string | null;

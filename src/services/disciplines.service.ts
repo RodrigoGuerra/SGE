@@ -17,7 +17,6 @@ export class DisciplinesService {
       disciplineId: v4(),
       createdAt: new Date(),
       name: createDisciplineInput.name,
-      persons: createDisciplineInput.persons,
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };

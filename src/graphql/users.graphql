@@ -1,24 +1,29 @@
 type User {
   # Example field (placeholder)
   userId: String!
+  phone: String
   email: String!
   name: String!
+  age: Int
   createdAt: String
   updatedAt: String
   roleId: Int!
   role: Role
-  # icon: String
 }
 
 input CreateUserInput {
   # Example field (placeholder)
+  phone: String
   email: String!
   name: String!
+  age: Int
   roleId: Int!
 }
 
 input UpdateUserInput {
   userId: String!
-  email: String
-  name: String
+  phone: String
+  email: String!
+  name: String!
+  age: Int
 }

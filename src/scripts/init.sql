@@ -13,6 +13,10 @@ CREATE TABLE `roles` (
   `can_read_employee` TINYINT(1),
   `can_update_employee` TINYINT(1),
   `can_delete_employee` TINYINT(1),
+  `can_create_school` TINYINT(1),
+  `can_read_school` TINYINT(1),
+  `can_update_school` TINYINT(1),
+  `can_delete_school` TINYINT(1),
   `can_create_class` TINYINT(1),
   `can_read_class` TINYINT(1),
   `can_update_class` TINYINT(1),
@@ -30,14 +34,12 @@ CREATE TABLE `roles` (
   PRIMARY KEY (`role_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-INSERT INTO `roles` (`role_id`,`role_name`,`can_add_employee`,`can_create_lead`,`can_edit_lead`,`can_vinculate_lead`,`can_delete_lead`,`created_at`) VALUES (uuid(),'manager',1,1,1,1,1,NOW());
-INSERT INTO `roles` (`role_id`,`role_name`,`can_add_employee`,`can_create_lead`,`can_edit_lead`,`can_vinculate_lead`,`can_delete_lead`,`created_at`) VALUES (uuid(),'employee',0,1,1,0,0,NOW());
-
 CREATE TABLE `users` (
   `user_id` VARCHAR(38) NOT NULL,
   `email` VARCHAR(255) UNIQUE,
+  `phone` VARCHAR(255),
   `name` VARCHAR(255),
+  `age` TINYINT,
   `role_id_fk` VARCHAR(38),
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME,
@@ -45,95 +47,54 @@ CREATE TABLE `users` (
   FOREIGN KEY (`role_id_fk`) REFERENCES `roles` (`role_id`) ON DELETE SET NULL 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `persons` (
-  `person_id` VARCHAR(38) NOT NULL,
-  `email` VARCHAR(255),
-  `phone` VARCHAR(255),
-  `name` VARCHAR(255),
-  `age` TINYINT,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME,
-  `user_id_fk` VARCHAR(38) NOT NULL,
-  `status` VARCHAR (30),
-  PRIMARY KEY (`person_id`),
-  FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `functions` (
-  `functions_id` VARCHAR(38) NOT NULL,
-  `name` VARCHAR(255),
-  PRIMARY KEY (`functions_id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `person_functions` (
-  `person_functions_id` VARCHAR(38) NOT NULL,
-  `person_id_fk` VARCHAR(38) NOT NULL,
-  `functions_id_fk` VARCHAR(38) NOT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME,  
-  PRIMARY KEY (`person_functions_id`),
-  FOREIGN KEY (`person_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE,
-  FOREIGN KEY (`functions_id_fk`) REFERENCES `functions` (`functions_id`) ON DELETE CASCADE  
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `users_integrations` (
-  `user_integration_id` VARCHAR(38) NOT NULL,
-  `integration_url` VARCHAR(500) UNIQUE ,
-  `integration_token` VARCHAR(50) UNIQUE,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME,
-  `user_id_fk` VARCHAR(38) NOT NULL,
-  PRIMARY KEY (`user_integration_id`),
-  FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE 
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `discipline` (
-  `discipline_id` VARCHAR(38) NOT NULL,
-  `name` VARCHAR(255),
-  `professor_id_fk` VARCHAR(38) NOT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME,  
-  PRIMARY KEY (`discipline_id`),
-  FOREIGN KEY (`professor_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `class` (
-  `class_id` VARCHAR(38) NOT NULL,
-  `name` VARCHAR(255),
-  `discipline_id_fk` VARCHAR(38) NOT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME,  
-  PRIMARY KEY (`class_id`),
-  FOREIGN KEY (`discipline_id_fk`) REFERENCES `discipline` (`discipline_id`) ON DELETE CASCADE
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `class_students` (
-  `class_students_id` VARCHAR(38) NOT NULL,
-  `class_id_fk` VARCHAR(38) NOT NULL,
-  `students_id_fk` VARCHAR(38) NOT NULL,
-  `created_at` DATETIME NOT NULL,
-  `updated_at` DATETIME,  
-  PRIMARY KEY (`class_students_id`),
-  FOREIGN KEY (`class_id_fk`) REFERENCES `class` (`class_id`) ON DELETE CASCADE,
-  FOREIGN KEY (`students_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE  
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `schools` (
   `school_id` VARCHAR(38) NOT NULL,
-  `name` VARCHAR(255),
+  `name` VARCHAR(255) NOT NULL,
+  `manager_id_fk` VARCHAR(38) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME,  
-  PRIMARY KEY (`school_id`)
+  PRIMARY KEY (`school_id`),
+  FOREIGN KEY (`manager_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `disciplines` (
+  `discipline_id` VARCHAR(38) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`discipline_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `schools_persons` (
-  `schools_persons_id` VARCHAR(38) NOT NULL,
+CREATE TABLE `teams` (
+  `team_id` VARCHAR(38) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `discipline_id_fk` VARCHAR(38) NOT NULL,
   `school_id_fk` VARCHAR(38) NOT NULL,
-  `persons_id_fk` VARCHAR(38) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME,  
-  PRIMARY KEY (`schools_persons_id`),
-  FOREIGN KEY (`school_id_fk`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE,
-  FOREIGN KEY (`persons_id_fk`) REFERENCES `persons` (`person_id`) ON DELETE CASCADE  
+  PRIMARY KEY (`team_id`),
+  FOREIGN KEY (`discipline_id_fk`) REFERENCES `disciplines` (`discipline_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`school_id_fk`) REFERENCES `schools` (`school_id`) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `teams_users` (
+  `teams_users_id` VARCHAR(38) NOT NULL,
+  `team_id_fk` VARCHAR(38) NOT NULL,
+  `user_id_fk` VARCHAR(38) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME,  
+  PRIMARY KEY (`teams_users_id`),
+  FOREIGN KEY (`team_id_fk`) REFERENCES `teams` (`team_id`) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id_fk`) REFERENCES `users` (`user_id`) ON DELETE CASCADE  
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `roles` (`role_id`,`role_name`,`can_create_student`,`can_update_student`,`can_delete_student`,`can_create_employee`,`can_read_employee`,`can_update_employee`,`can_delete_employee`,`can_create_school`,`can_read_school`,`can_update_school`,`can_delete_school`,`can_create_class`,`can_read_class`,`can_update_class`,`can_delete_class`,`can_create_discipline`,`can_read_discipline`,`can_update_discipline`,`can_delete_discipline`,`can_vinculate_student`,`can_vinculate_employee`,`can_vinculate_class`,`can_vinculate_discipline`,`created_at`) VALUES (1,'manager',1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,NOW());
+INSERT INTO `roles` (`role_id`,`role_name`,`can_create_student`,`can_update_student`,`can_delete_student`,`can_create_employee`,`can_read_employee`,`can_update_employee`,`can_delete_employee`,`can_create_school`,`can_read_school`,`can_update_school`,`can_delete_school`,`can_create_class`,`can_read_class`,`can_update_class`,`can_delete_class`,`can_create_discipline`,`can_read_discipline`,`can_update_discipline`,`can_delete_discipline`,`can_vinculate_student`,`can_vinculate_employee`,`can_vinculate_class`,`can_vinculate_discipline`,`created_at`) VALUES (2,'professor',0,1,0,0,0,1,0,0,0,0,0,0,1,1,0,1,1,1,0,1,0,1,1,NOW());
+INSERT INTO `roles` (`role_id`,`role_name`,`can_create_student`,`can_update_student`,`can_delete_student`,`can_create_employee`,`can_read_employee`,`can_update_employee`,`can_delete_employee`,`can_create_school`,`can_read_school`,`can_update_school`,`can_delete_school`,`can_create_class`,`can_read_class`,`can_update_class`,`can_delete_class`,`can_create_discipline`,`can_read_discipline`,`can_update_discipline`,`can_delete_discipline`,`can_vinculate_student`,`can_vinculate_employee`,`can_vinculate_class`,`can_vinculate_discipline`,`created_at`) VALUES (3,'student',0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,NOW());
+
+drop table teams_users;
+drop table teams;
+drop table disciplines;
+drop table schools;
+drop table users;
+drop table roles;

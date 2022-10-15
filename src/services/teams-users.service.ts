@@ -1,29 +1,29 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { PersonFunctions } from '../entities/person-functions.entity';
+import { TeamsUsers } from '../entities/teams-users.entity';
 
 @Injectable()
-export class PersonFunctionsService {
+export class TeamsUsersService {
   constructor(
-    @Inject('PERSON_FUNCTION_REPOSITORY')
-    private personFunctionRepository: Repository<PersonFunctions>,
+    @Inject('TEAMS_USERS_REPOSITORY')
+    private teamsUsersRepository: Repository<TeamsUsers>,
   ) {}
 
-  findAllEmployeesByManager(personId: string) {
-    return this.personFunctionRepository.find({
+  findAllTeamsByUser(userId: string) {
+    return this.teamsUsersRepository.find({
       where: {
-        personIdFk: personId,
+        userIdFk: userId,
       },
-      relations: ['person'],
+      relations: ['user'],
     });
   }
 
-  findManagerByEmployee(functionsId: string) {
-    return this.personFunctionRepository.find({
+  findUsersByTeam(teamId: string) {
+    return this.teamsUsersRepository.find({
       where: {
-        functionsIdFk: functionsId,
+        teamIdFk: teamId,
       },
-      relations: ['functions'],
+      relations: ['team'],
     });
   }
   // create(createManagerEmployeeInput: CreateUserEmployeeInput) {

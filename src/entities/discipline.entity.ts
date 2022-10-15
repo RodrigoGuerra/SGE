@@ -1,5 +1,4 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Person } from './person.entity';
 
 @Index('name', ['name'], { unique: true })
 @Entity('discipline', { schema: 'sge_db' })
@@ -21,6 +20,4 @@ export class Discipline {
   @Column('datetime', { name: 'updated_at', nullable: true })
   updatedAt: Date | null;
 
-  @OneToMany(() => Person, (persons) => persons.discipline, { eager: false })
-  persons: Person[];
 }
