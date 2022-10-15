@@ -12,7 +12,7 @@ export class DisciplinesService {
     private disciplineRepository: Repository<Discipline>,
   ) {}
 
-  createDiscipline(createDisciplineInput: CreateDisciplineInput) {
+  async createDiscipline(createDisciplineInput: CreateDisciplineInput) {
     const discipline: Discipline = {
       disciplineId: v4(),
       createdAt: new Date(),
@@ -20,7 +20,8 @@ export class DisciplinesService {
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };
-    return this.disciplineRepository.save(discipline);
+    const result = await this.disciplineRepository.save(discipline);
+    return result;
   }
 
   findOne(disciplineId: string) {
@@ -29,6 +30,11 @@ export class DisciplinesService {
   async findByName(name: string) {
     const result = await this.disciplineRepository.findOne({ where: { name } });
     // if (!result) throw new Error('discipline not found');
+    return result;
+  }
+
+  async findAllDisciplines() {
+    const result = await this.disciplineRepository.find();
     return result;
   }
 

@@ -12,17 +12,18 @@ export class SchoolsService {
     private schoolRepository: Repository<School>,
   ) {}
 
-  createSchool(createSchoolInput: CreateSchoolInput) {
+  async createSchool(createSchoolInput: CreateSchoolInput) {
     const school: School = {
       schoolId: v4(),
       createdAt: new Date(),
       name: createSchoolInput.name,
       managerId: createSchoolInput.managerId,
-      teams: null,
+      teams: [],
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };
-    return this.schoolRepository.save(school);
+    const result = await this.schoolRepository.save(school);
+    return result;
   }
 
   findOne(schoolId: string) {

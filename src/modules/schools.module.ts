@@ -8,4 +8,4 @@ import { DatabaseModule } from './database.module';
   providers: [...SchoolProvider, SchoolsResolver, SchoolsService],
   imports: [DatabaseModule],
 })
-export class UsersModule {}
+export class SchoolModule {}

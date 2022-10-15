@@ -1,7 +1,7 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 
 @Index('name', ['name'], { unique: true })
-@Entity('discipline', { schema: 'sge_db' })
+@Entity('disciplines', { schema: 'sge_db' })
 export class Discipline {
   @Column('varchar', { primary: true, name: 'discipline_id', length: 38 })
   disciplineId: string;

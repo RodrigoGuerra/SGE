@@ -22,6 +22,11 @@ export class DisciplinesResolver {
     return this.disciplinesService.findByName(name);
   }
 
+  @Query('listDisciplines')
+  findAllDisciplines() {
+    return this.disciplinesService.findAllDisciplines();
+  }
+
   @Mutation('updateDiscipline')
   update(
     @Args('updateDisciplineInput') updateDisciplineInput: UpdateDisciplineInput,

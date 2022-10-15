@@ -2,7 +2,7 @@ import { Column, Entity, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Team } from './team.entity';
 
-@Entity('school', { schema: 'sge_db' })
+@Entity('schools', { schema: 'sge_db' })
 export class School {
   @Column('varchar', { primary: true, name: 'school_id', length: 38 })
   schoolId: string;
@@ -10,7 +10,7 @@ export class School {
   @Column('varchar', { name: 'name', nullable: true, length: 255 })
   name: string | null;
 
-  @Column('tinyint', { name: 'user_id_fk', nullable: false })
+  @Column('tinyint', { name: 'manager_id_fk', nullable: false })
   managerId: string | null;
 
   @Column('datetime', { name: 'created_at' })
@@ -23,7 +23,7 @@ export class School {
     onDelete: 'CASCADE',
     onUpdate: 'NO ACTION',
   })
-  @JoinColumn([{ name: 'user_id_fk', referencedColumnName: 'userId' }])
+  @JoinColumn([{ name: 'manager_id_fk', referencedColumnName: 'userId' }])
   user?: User;
 
   @OneToMany(() => Team, (teams) => teams.school, { eager: false })

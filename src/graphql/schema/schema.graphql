@@ -1,6 +1,7 @@
 type Query {
   userByEmail(email: String!): User
   disciplineByName(name: String!): Discipline
+  listDisciplines: [Discipline]
   teamByName(name: String!): Team
   schoolByName(name: String!): School
   schoolsByManager(managerUserId: String!): [School]
