@@ -18,7 +18,7 @@ export class SchoolsService {
       createdAt: new Date(),
       name: createSchoolInput.name,
       managerId: createSchoolInput.managerId,
-      teams: createSchoolInput.teams,
+      teams: null,
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };
