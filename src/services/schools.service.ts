@@ -34,6 +34,15 @@ export class SchoolsService {
     return result;
   }
 
+  async findAllSchoolsByManager(managerUserId: string) {
+    const result = await this.schoolRepository.find({
+      where: {
+        personId: managerUserId,
+      },
+    });
+    return result;
+  }
+
   async update(
     schoolId: string,
     updateSchoolInput: UpdateSchoolInput,

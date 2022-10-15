@@ -20,6 +20,11 @@ export class SchoolsResolver {
     return this.schoolsService.findByName(name);
   }
 
+  @Query('schoolsByManager')
+  findAllSchoolsByManager(@Args('managerUserId') managerUserId: string) {
+    return this.schoolsService.findAllSchoolsByManager(managerUserId);
+  }
+
   @Mutation('updateSchool')
   update(@Args('updateSchoolInput') updateSchoolInput: UpdateSchoolInput) {
     return this.schoolsService.update(

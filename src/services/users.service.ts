@@ -4,6 +4,7 @@ import { UpdateUserInput } from '../dtos/update-user.input';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { v4 } from 'uuid';
+import { School } from '../entities/school.entity';
 
 @Injectable()
 export class UsersService {
@@ -53,4 +54,5 @@ export class UsersService {
     const result = await this.userRepository.delete(userId);
     return result.affected ? true : false;
   }
+
 }

@@ -125,6 +125,7 @@ type Role {
   disciplineByName(name: String!): Discipline
   teamByName(name: String!): Team
   schoolByName(name: String!): School
+  schoolsByManager(managerUserId: String!): [School]
 }
 
 type Mutation {

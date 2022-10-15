@@ -32,4 +32,5 @@ export class UsersResolver {
   removeUser(@Args('userId') userId: string) {
     return this.usersService.remove(userId);
   }
+
 }
