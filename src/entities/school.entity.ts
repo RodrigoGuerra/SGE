@@ -11,7 +11,7 @@ export class School {
   name: string | null;
 
   @Column('tinyint', { name: 'user_id_fk', nullable: false })
-  userId: string | null;
+  managerId: string | null;
 
   @Column('datetime', { name: 'created_at' })
   createdAt: Date;

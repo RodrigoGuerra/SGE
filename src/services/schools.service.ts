@@ -17,7 +17,7 @@ export class SchoolsService {
       schoolId: v4(),
       createdAt: new Date(),
       name: createSchoolInput.name,
-      userId: createSchoolInput.userId,
+      managerId: createSchoolInput.managerId,
       teams: createSchoolInput.teams,
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
@@ -34,10 +34,10 @@ export class SchoolsService {
     return result;
   }
 
-  async findAllSchoolsByManager(managerUserId: string) {
+  async findAllSchoolsByManager(managerId: string) {
     const result = await this.schoolRepository.find({
       where: {
-        userId: managerUserId,
+        managerId: managerId,
       },
     });
     return result;

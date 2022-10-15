@@ -80,10 +80,12 @@ type School {
 input CreateSchoolInput {
   # Example field (placeholder)
   name: String!
+  managerId: String
 }
 
 input UpdateSchoolInput {
   schoolId: String!
+  managerId: String
   name: String
 }
 type Team {
