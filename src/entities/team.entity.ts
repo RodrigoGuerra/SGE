@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, JoinColumn } from 'typeorm';
 import { Discipline } from './discipline.entity';
 import { School } from './school.entity';
 
-@Entity('team', { schema: 'sge_db' })
+@Entity('teams', { schema: 'sge_db' })
 export class Team {
   @Column('varchar', { primary: true, name: 'team_id', length: 38 })
   teamId: string;

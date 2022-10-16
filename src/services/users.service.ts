@@ -34,6 +34,11 @@ export class UsersService {
     return result;
   }
 
+  async findAllUsers() {
+    const result = await this.userRepository.find();
+    return result;
+  }
+
   async update(
     userId: string,
     updateUserInput: UpdateUserInput,

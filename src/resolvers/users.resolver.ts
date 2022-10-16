@@ -23,6 +23,11 @@ export class UsersResolver {
     return this.usersService.findByEmail(email);
   }
 
+  @Query('listUsers')
+  findAllDisciplines() {
+    return this.usersService.findAllUsers();
+  }
+
   @Mutation('updateUser')
   update(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.usersService.update(updateUserInput.userId, updateUserInput);

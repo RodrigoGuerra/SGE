@@ -1,0 +1,20 @@
+type TeamsUsers {
+  # Example field (placeholder)
+  teamsUsersId: String!
+  teamId: String!
+  userId: String!
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateTeamsUsersInput {
+  # Example field (placeholder)
+  teamId: String!
+  userId: String!
+}
+
+input UpdateTeamsUsersInput {
+  teamsUsersId: String!
+  teamId: String!
+  userId: String!
+}

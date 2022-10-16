@@ -21,6 +21,11 @@ export class TeamsResolver {
     return this.teamsService.findByName(name);
   }
 
+  @Query('listTeams')
+  findAllDisciplines() {
+    return this.teamsService.findAllTeams();
+  }
+
   @Mutation('updateTeam')
   update(@Args('updateTeamInput') updateTeamInput: UpdateTeamInput) {
     return this.teamsService.update(updateTeamInput.teamId, updateTeamInput);

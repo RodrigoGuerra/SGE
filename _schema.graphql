@@ -47,11 +47,14 @@ type Role {
   updatedAt: String
 }type Query {
   userByEmail(email: String!): User
+  listUsers: [User]
   disciplineByName(name: String!): Discipline
   listDisciplines: [Discipline]
   teamByName(name: String!): Team
+  listTeams: [Team]
   schoolByName(name: String!): School
   schoolsByManager(managerUserId: String!): [School]
+  listTeamsUsers: [TeamsUsers]
 }
 
 type Mutation {
@@ -67,6 +70,8 @@ type Mutation {
   createSchool(createSchoolInput: CreateSchoolInput!): School!
   updateSchool(updateSchoolInput: UpdateSchoolInput!): School!
   removeSchool(id: Int!): School
+  createTeamsUsers(createTeamsUsersInput: CreateTeamsUsersInput!): TeamsUsers!
+  removeTeamsUsers(id: Int!): TeamsUsers
 }
 type School {
   # Example field (placeholder)
@@ -89,20 +94,42 @@ input UpdateSchoolInput {
   managerId: String
   name: String
 }
+type TeamsUsers {
+  # Example field (placeholder)
+  teamsUsersId: String!
+  teamId: String!
+  userId: String!
+  createdAt: String
+  updatedAt: String
+}
+
+input CreateTeamsUsersInput {
+  # Example field (placeholder)
+  teamId: String!
+  userId: String!
+}
+
+input UpdateTeamsUsersInput {
+  teamsUsersId: String!
+  teamId: String!
+  userId: String!
+}
 type Team {
   # Example field (placeholder)
   teamId: String!
   name: String!
+  disciplineId: String!
+  schoolId: String!
   createdAt: String
   updatedAt: String
-  discipline: Discipline!
-  school: School!
+  
 }
 
 input CreateTeamInput {
   # Example field (placeholder)
-  teamId: String!
   name: String!
+  disciplineId: String!
+  schoolId: String!
 }
 
 input UpdateTeamInput {

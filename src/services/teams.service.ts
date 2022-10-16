@@ -12,7 +12,7 @@ export class TeamsService {
     private teamRepository: Repository<Team>,
   ) {}
 
-  createUser(createTeamInput: CreateTeamInput) {
+  async createUser(createTeamInput: CreateTeamInput) {
     const team: Team = {
       teamId: v4(),
       createdAt: new Date(),
@@ -22,7 +22,8 @@ export class TeamsService {
       updatedAt: null,
       //icon: `svg-${Math.floor(Math.random() * 15) + 1}`,
     };
-    return this.teamRepository.save(team);
+    const result = await this.teamRepository.save(team);
+    return result;
   }
 
   findOne(teamId: string) {
@@ -31,6 +32,11 @@ export class TeamsService {
   async findByName(name: string) {
     const result = await this.teamRepository.findOne({ where: { name } });
     // if (!result) throw new Error('User not found');
+    return result;
+  }
+
+  async findAllTeams() {
+    const result = await this.teamRepository.find();
     return result;
   }
 
