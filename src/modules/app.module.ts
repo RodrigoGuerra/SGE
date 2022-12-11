@@ -7,9 +7,10 @@ import { TeamsUsersModule } from './teams-users.module';
 import { GqlModule } from './graphql.module';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthCheckController } from '../controlles/healthcheck';
+import { AuthorizeModule } from './authorize.module';
 
 @Module({
-  imports: [UsersModule, SchoolModule, DisciplinesModule, TeamsModule, TeamsUsersModule, GqlModule, TerminusModule],
+  imports: [UsersModule, SchoolModule, DisciplinesModule, TeamsModule, TeamsUsersModule, GqlModule, TerminusModule, AuthorizeModule],
   providers: [],
   controllers: [HealthCheckController],
 })
